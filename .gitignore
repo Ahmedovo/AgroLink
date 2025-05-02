@@ -1,0 +1,50 @@
+# .gitignore
+
+# Environnements virtuels Python
+venv/
+ENV/
+env/
+Lib/
+Include/
+Scripts/
+
+# Fichiers Node.js (y compris package.json)
+package.json
+package-lock.json
+node_modules/
+
+# Fichiers de compilation Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.*.local
+
+# Base de données
+*.db
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs et dossiers générés
+logs/
+*.log
+npm-debug.log*
+
+# Fichiers de couverture
+.coverage
+htmlcov/
+
+# Fichiers de build/dist
+dist/
+build/
+*.egg-info/
