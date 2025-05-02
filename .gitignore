@@ -1,16 +1,13 @@
 # .gitignore
 
 # Environnements virtuels Python
-venv/
-ENV/
-env/
+
 Lib/
 Include/
 Scripts/
 
 # Fichiers Node.js (y compris package.json)
-package.json
-package-lock.json
+
 node_modules/
 
 # Fichiers de compilation Python
@@ -21,7 +18,7 @@ __pycache__/
 .Python
 
 # Fichiers d'environnement
-.env
+
 .env.local
 .env.*.local
 
