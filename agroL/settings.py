@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'agriculteur',
-    'authentification',
     'client',
     'authentication.apps.AuthenticationConfig',
     'produits.apps.ProduitsConfig', 
     'commandes.apps.CommandesConfig',
+     
 ]
 
 MIDDLEWARE = [
