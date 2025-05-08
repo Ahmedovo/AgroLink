@@ -17,6 +17,7 @@ class Produit(models.Model):
     )
     
     # Champs de base
+    id_Agent = models.IntegerField()
     nom = models.CharField(max_length=100)
     categorie = models.CharField(max_length=10, choices=CATEGORIES)
     saison = models.CharField(max_length=10, choices=SAISONS)

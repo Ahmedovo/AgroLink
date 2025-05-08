@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Ajouter un produit{% endblock %}
+{% block header_title %}Nouveau produit{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl bg-white rounded-lg shadow p-6">
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for field in form %}
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <p class="text-xs text-gray-500">{{ field.help_text }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-8 flex justify-end space-x-3">
+            <a href="{% url 'product-list' %}" class="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300">Annuler</a>
+            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 flex items-center">
+                <span class="mr-2">💾</span> Enregistrer
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
