@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'agriculteur',
     'client',
-    'authentication.apps.AuthenticationConfig',
     'produits.apps.ProduitsConfig', 
     'commandes.apps.CommandesConfig',
+    'authentication',
      
 ]
 
