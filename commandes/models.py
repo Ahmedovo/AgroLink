@@ -11,7 +11,7 @@ class Commande(models.Model):
         ('EXPEDIEE', 'Expédiée'),
         ('LIVREE', 'Livrée'),
     )
-    
+    idClient = models.IntegerField()
     client = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     statut = models.CharField(max_length=20, choices=STATUTS, default='RECUE')
@@ -28,6 +28,8 @@ class Commande(models.Model):
         return f"Commande #{self.id} - {self.client.email}"
 
 class LigneCommande(models.Model):
+    idCommande = models.IntegerField()
+    idProduit = models.IntegerField()
     commande = models.ForeignKey(Commande, on_delete=models.CASCADE)
     produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
     quantite = models.IntegerField(default=1)

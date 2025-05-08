@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Supprimer un produit{% endblock %}
+{% block header_title %}Confirmation de suppression{% endblock %}
+
+{% block content %}
+<div class="max-w-md bg-white rounded-lg shadow p-6">
+    <div class="text-center">
+        <div class="mx-auto mb-4 text-red-500 text-4xl">⚠️</div>
+        <h3 class="text-lg font-medium mb-4">Êtes-vous sûr de vouloir supprimer ce produit ?</h3>
+        <p class="mb-6 text-gray-600">{{ produit.nom }} - {{ produit.categorie }}</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="flex justify-center space-x-3">
+                <a href="{% url 'product-list' %}" class="bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300">Annuler</a>
+                <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 flex items-center">
+                    <span class="mr-2">🗑️</span> Confirmer
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

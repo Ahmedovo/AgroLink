@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Liste des produits{% endblock %}
+{% block header_title %}Gestion des produits{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow">
+    <div class="px-6 py-4 border-b flex justify-between items-center">
+        <h2 class="text-lg font-semibold">Liste des produits</h2>
+        <a href="{% url 'product-create' %}" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 flex items-center">
+            <span class="mr-2">➕</span> Nouveau produit
+        </a>
+    </div>
+    
+    <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nom</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Catégorie</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Prix</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stock</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for produit in produits %}
+                <tr>
+                    <td class="px-6 py-4">{{ produit.nom }}</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
+                            {{ produit.get_categorie_display }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4">{{ produit.prix_suggere }} €</td>
+                    <td class="px-6 py-4">
+                        <span class="px-2 py-1 {% if produit.stock > 0 %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %} rounded-full text-xs">
+                            {{ produit.stock }} en stock
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 space-x-2">
+                        <a href="{% url 'product-update' produit.id %}" class="text-blue-600 hover:text-blue-800">✏️ Modifier</a>
+                        <a href="{% url 'product-delete' produit.id %}" class="text-red-600 hover:text-red-800">🗑️ Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
