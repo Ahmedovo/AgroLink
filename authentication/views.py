@@ -8,7 +8,14 @@ from django.contrib import messages
 from .models import User, AgentProfile, ClientProfile  # Make sure this matches your actual model names
 
 def login_user(request):
+    if request.user.is_authenticated:
+        if request.user.role == 'AGRI':
+                return redirect('agriculteur_dashboard')
+        elif request.user.role == 'ACHETEUR':
+                return redirect('product-list')
+        return redirect('home')
     if request.method == 'POST':
+       
         email = request.POST.get('email')  # Changed from username
         password = request.POST.get('password')
         
@@ -22,14 +29,21 @@ def login_user(request):
             if user.role == 'AGRI':
                 return redirect('agriculteur_dashboard')
             elif user.role == 'ACHETEUR':
-                return redirect('acheteur_dashboard')
+                return redirect('product-list')
             return redirect('home')
         else:
+            
             messages.error(request, "Email ou mot de passe incorrect.")
     
     return render(request, 'registration/login.html')
 
 def register(request):
+    if request.user.is_authenticated:
+        if request.user.role == 'AGRI':
+                return redirect('agriculteur_dashboard')
+        elif request.user.role == 'ACHETEUR':
+                return redirect('product-list')
+        return redirect('home')
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         print("Raw POST data:", request.POST) 
