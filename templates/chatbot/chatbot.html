@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AgroLink Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md">
+        <div class="bg-green-600 text-white text-center py-4 rounded-t-lg">
+            <h1 class="text-xl font-bold">💬 AgroLink Chatbot</h1>
+        </div>
+        <div id="chat-box" class="p-4 h-96 overflow-y-auto space-y-2">
+            <!-- Messages will appear here -->
+        </div>
+        <div class="flex border-t">
+            <input type="text" id="user-input" placeholder="Type your message..." class="flex-1 px-4 py-2 border-none focus:outline-none">
+            <button id="send-btn" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-r-lg">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function appendMessage(text, type) {
+            const messageDiv = $('<div>').addClass('px-3 py-2 rounded-lg max-w-[80%] break-words');
+            if (type === 'user') {
+                messageDiv.addClass('bg-blue-100 self-end text-right ml-auto');
+            } else {
+                messageDiv.addClass('bg-green-100 self-start mr-auto');
+            }
+            messageDiv.text(text);
+            $('#chat-box').append(messageDiv);
+            $('#chat-box').scrollTop($('#chat-box')[0].scrollHeight);
+        }
+
+        $('#send-btn').click(function() {
+            const userMessage = $('#user-input').val();
+            if (userMessage.trim() === '') return;
+
+            appendMessage("You: " + userMessage, 'user');
+
+            $.get('/chatbot/get-response/', { message: userMessage }, function(data) {
+                appendMessage("Bot: " + data.reply, 'bot');
+            });
+
+            $('#user-input').val('');
+        });
+
+        $('#user-input').keypress(function(e) {
+            if (e.which === 13) {
+                $('#send-btn').click();
+            }
+        });
+    </script>
+</body>
+</html>

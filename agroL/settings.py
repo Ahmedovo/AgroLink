@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'produits.apps.ProduitsConfig', 
     'commandes.apps.CommandesConfig',
     'authentication',
+    'chatbot'
      
 ]
 
