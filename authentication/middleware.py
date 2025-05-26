@@ -14,7 +14,7 @@ class RoleBasedAccessMiddleware:
             # Allow access to login and register pages
             print(path)
             if path != '/':
-                if not path.startswith('/auth') and not path.startswith('/admin'):
+                if not path.startswith('/auth') and not path.startswith('/admin') and not path.startswith('/chatbot'):
                     return redirect('home')
 
         else:
