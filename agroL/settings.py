@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'authentication.middleware.RoleBasedAccessMiddleware',  # Custom middleware for role-based access
 ]
 
 ROOT_URLCONF = 'agroL.urls'

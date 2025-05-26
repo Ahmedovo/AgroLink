@@ -3,16 +3,17 @@ from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
 from .forms import UserRegisterForm
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login , logout
 from django.contrib import messages
 from .models import User, AgentProfile, ClientProfile  # Make sure this matches your actual model names
 
 def login_user(request):
     if request.user.is_authenticated:
         if request.user.role == 'AGRI':
-                return redirect('agriculteur_dashboard')
-        elif request.user.role == 'ACHETEUR':
                 return redirect('product-list')
+                
+        elif request.user.role == 'ACHETEUR':
+                return redirect('agriculteur_dashboard')
         return redirect('home')
     if request.method == 'POST':
        
@@ -27,9 +28,9 @@ def login_user(request):
             
             # Redirect based on role
             if user.role == 'AGRI':
-                return redirect('agriculteur_dashboard')
-            elif user.role == 'ACHETEUR':
                 return redirect('product-list')
+            elif user.role == 'ACHETEUR':
+                return redirect('agriculteur_dashboard')
             return redirect('home')
         else:
             
@@ -40,9 +41,9 @@ def login_user(request):
 def register(request):
     if request.user.is_authenticated:
         if request.user.role == 'AGRI':
-                return redirect('agriculteur_dashboard')
-        elif request.user.role == 'ACHETEUR':
                 return redirect('product-list')
+        elif request.user.role == 'ACHETEUR':
+                return redirect('agriculteur_dashboard')
         return redirect('home')
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -87,3 +88,8 @@ def register(request):
         form = UserRegisterForm()
     
     return render(request, 'registration/register.html', {'form': form})
+
+def logout_user(request):
+    logout(request)
+    messages.success(request, "Vous avez été déconnecté avec succès.")
+    return redirect('home')  # Redirige vers la page de login
