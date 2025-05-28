@@ -27,3 +27,7 @@ urlpatterns = [
     path('auth/', include('authentication.urls')),
     path('chatbot/', include('chatbot.urls')),  
 ]
+
+from django.conf.urls.static import static
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

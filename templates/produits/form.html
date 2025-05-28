@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Ajouter un produit{% endblock %}
-{% block header_title %}Nouveau produit{% endblock %}
+{% block title %}{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} un produit{% endblock %}
+{% block header_title %}{% if form.instance.pk %}Modifier{% else %}Ajouter{% endif %} un produit{% endblock %}
 
 {% block content %}
 <div class="max-w-3xl bg-white rounded-lg shadow p-6">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -15,8 +15,18 @@
                 {% if field.help_text %}
                 <p class="text-xs text-gray-500">{{ field.help_text }}</p>
                 {% endif %}
+                {% if field.errors %}
+                <p class="text-xs text-red-500">{{ field.errors }}</p>
+                {% endif %}
             </div>
             {% endfor %}
+        </div>
+        
+        <!-- Affichage de la plage de prix recommandée (tous agents) -->
+        <div id="price-range-advice" class="mt-6 p-4 bg-blue-50 rounded-lg hidden">
+            <h3 class="font-medium text-blue-800">Conseil de prix saisonnier</h3>
+            <p id="price-range-text" class="mt-2"></p>
+            <p id="price-data-source" class="text-xs text-gray-500 mt-1"></p>
         </div>
 
         <div class="mt-8 flex justify-end space-x-3">
@@ -27,4 +37,53 @@
         </div>
     </form>
 </div>
+
+<script>
+// Mise à jour dynamique de la plage de prix basée sur tous les agents
+document.addEventListener('DOMContentLoaded', function() {
+    const nomField = document.querySelector('#id_nom');
+    const saisonField = document.querySelector('#id_saison');
+    const adviceContainer = document.getElementById('price-range-advice');
+    const priceRangeText = document.getElementById('price-range-text');
+    const dataSourceText = document.getElementById('price-data-source');
+    
+    function updatePriceRange() {
+        const nom = nomField.value;
+        const saison = saisonField.value;
+        
+        if (nom && saison) {
+            fetch(`/produits/prix-saisonnier/?nom=${nom}&saison=${saison}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.min && data.max) {
+                        const saisonName = saisonField.options[saisonField.selectedIndex].text.toLowerCase();
+                        
+                        priceRangeText.innerHTML = `
+                            Pour <span class="font-bold">${nom}</span> en ${saisonName}, 
+                            la plage de prix recommandée est entre 
+                            <span class="font-bold">${data.min} DH/kg</span> et 
+                            <span class="font-bold">${data.max} DH/kg</span>.
+                        `;
+                        
+                        dataSourceText.textContent = `Basé sur ${data.count} produits de différents agents`;
+                        adviceContainer.classList.remove('hidden');
+                    } else if (data.message) {
+                        priceRangeText.textContent = data.message;
+                        adviceContainer.classList.remove('hidden');
+                    }
+                });
+        }
+    }
+    
+    if (nomField && saisonField) {
+        nomField.addEventListener('change', updatePriceRange);
+        saisonField.addEventListener('change', updatePriceRange);
+        
+        // Initialiser au chargement si les champs sont pré-remplis
+        if (nomField.value && saisonField.value) {
+            updatePriceRange();
+        }
+    }
+});
+</script>
 {% endblock %}
