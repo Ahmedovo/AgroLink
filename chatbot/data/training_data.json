@@ -37,5 +37,67 @@
     "how do i report a problem with an order": "Go to your order details and click 'Report Issue'. Our support team will assist you promptly.",
     "goodbye": "Goodbye! Thanks for using AgroLink. We hope to see you again soon!",
     "thank you": "You're welcome! We're here to help whenever you need.",
-    "thanks": "You're welcome! If you have more questions, just ask."
+    "thanks": "You're welcome! If you have more questions, just ask.",
+
+  "Comment arroser les tomates?": "Pour les tomates: 1) Arrosez au pied sans mouiller les feuilles 2) Préférez un arrosage le matin 3) En été, arrosez tous les 2-3 jours 4) Utilisez un paillis pour conserver l'humidité.",
+  
+  "Arrosage des tomates en été": "En été: 1) Augmentez la fréquence à tous les 2 jours 2) Arrosez tôt le matin 3) Utilisez 3-4 litres d'eau par plant 4) Surveillez le flétrissement des feuilles comme indicateur.",
+  
+  "Quelle nourriture pour vaches laitières?": "Pour les vaches laitières: 1) Fourrage vert (herbe, luzerne) 2) Foin de qualité 3) Compléments céréaliers (maïs, orge) 4) Minéraux et vitamines 5) 100-150 litres d'eau par jour.",
+  
+  "Conseils pour mes vaches laitières": "Conseils clés: 1) Alimentation équilibrée 2) Accès constant à l'eau fraîche 3) Environnement propre et confortable 4) Traite régulière 5) Suivi vétérinaire périodique.",
+  
+  "Comment augmenter ma production laitière?": "Pour augmenter la production: 1) Optimisez l'alimentation (énergie et protéines) 2) Assurez un confort optimal 3) Maintenez un programme de traite régulier 4) Surveillez la santé du troupeau 5) Consultez un nutritionniste animal.",
+  
+  "Quelle est la meilleure période pour planter le blé?": "Pour le blé d'hiver: octobre-novembre. Pour le blé de printemps: février-mars. Adaptez selon votre région et les conditions météorologiques.",
+   "Comment vendre mes produits?": {
+    "answer": "Pour optimiser vos ventes: 1) Mettez en avant la qualité de vos produits avec des photos professionnelles 2) Utilisez notre système de tarification intelligente 3) Ciblez les épiceries bio et restaurants locaux 4) Participez aux marchés de producteurs 5) Proposez des paniers hebdomadaires.",
+    "category": "vente"
+  },
+  
+  "Arrosage des tomates": {
+    "answer": "Pour les tomates: 1) Arrosez au pied sans mouiller les feuilles (évite les maladies) 2) Fréquence: 2-3 fois/semaine en été, 1 fois/semaine au printemps 3) Quantité: 3-4 litres par plant 4) Moment idéal: tôt le matin 5) Utilisez un système goutte-à-goutte pour économiser l'eau.",
+    "category": "arrosage"
+  },
+  
+  "Nourriture pour vaches laitières": {
+    "answer": "Alimentation optimale: 1) Fourrage vert (70% de la ration) 2) Foin de luzerne (15%) 3) Compléments céréaliers (maïs, orge - 10%) 4) Minéraux et vitamines (5%) 5) Eau à volonté (100-150 litres/jour). Pour une production de 30L/jour, ajoutez 1kg de tourteau de soja.",
+    "category": "nutrition"
+  },
+  
+  "Comment lutter contre les pucerons naturellement?": {
+    "answer": "Méthodes biologiques: 1) Coccinelles (2-3 par m²) 2) Pulvérisation de savon noir (10g/L d'eau) 3) Plantes répulsives: lavande, menthe, romarin 4) Purin d'ortie ou décoction d'ail 5) Pièges chromatiques jaunes. Traitez tôt le matin ou en soirée.",
+    "category": "traitement"
+  },
+  
+  "Quand récolter les pommes de terre?": {
+    "answer": "Signes de maturité: 1) Feuillage jauni et desséché 2) Peau des tubercules qui ne s'écaille pas au frottement 3) Généralement 90-120 jours après plantation. Pour une conservation optimale, récoltez par temps sec et laissez sécher 2-3 heures au soleil avant de stocker dans un endroit frais (4-8°C) et obscur.",
+    "category": "récolte"
+  },
+  
+  "Fertilisation des agrumes": {
+    "answer": "Programme de fertilisation: 1) Février-mars: NPK 10-5-5 (stimule la végétation) 2) Mai-juin: NPK 8-12-12 (favorise la floraison) 3) Septembre: NPK 6-8-10 (prépare l'hiver). Appliquez 300g/arbre pour les jeunes sujets, jusqu'à 2kg pour les arbres matures. Arrosez abondamment après application.",
+    "category": "fertilisation"
+  },
+  
+  "Rotation des cultures": {
+    "answer": "Principes clés: 1) Alternez familles botaniques (solacées ⇨ légumineuses ⇨ cucurbitacées) 2) Après une culture gourmande (tomate), plantez des légumineuses (haricot) pour régénérer le sol 3) Durée: 3-4 ans avant de replanter la même culture au même endroit 4) Intégrez des engrais verts (moutarde, phacélie) entre les cultures.",
+    "category": "gestion"
+  },
+  
+  "Comment conserver mes récoltes plus longtemps?": {
+    "answer": "Méthodes de conservation: 1) Réfrigération (1-4°C): légumes feuilles, carottes 2) Cave fraîche (10-12°C): pommes de terre, pommes 3) Congélation (-18°C): fruits, légumes blanchis 4) Séchage: herbes aromatiques, tomates 5) Conserves stérilisées: sauces, confitures. Contrôlez régulièrement l'état des stocks.",
+    "category": "conservation"
+  },
+  
+  "Quelles cultures pour sol argileux?": {
+    "answer": "Plantes adaptées: 1) Arbres fruitiers: pommier, poirier 2) Légumes: chou, épinard, poireau 3) Céréales: blé, orge 4) Plantes vivaces: rhubarbe, asperge. Améliorez le drainage avec du sable et du compost. Évitez les travaux du sol lorsqu'il est gorgé d'eau.",
+    "category": "sols"
+  },
+  
+  "Comment augmenter la production laitière?": {
+    "answer": "Stratégies efficaces: 1) Alimentation: ration équilibrée avec 16-18% de protéines 2) Confort: litière propre, espace suffisant 3) Traite: horaires réguliers, massage des pis 4) Santé: contrôle vétérinaire trimestriel 5) Génétique: sélection de reproducteurs performants. Une vache stressée peut voir sa production baisser de 30%.",
+    "category": "élevage"
+  }
+
 }

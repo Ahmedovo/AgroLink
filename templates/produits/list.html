@@ -3,6 +3,51 @@
 {% block header_title %}Mes produits{% endblock %}
 
 {% block content %}
+<!-- Bouton flottant pour ouvrir le chatbot -->
+<button id="chat-toggle" class="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 text-white p-4 rounded-full shadow-lg z-10">
+    💬 Chat
+</button>
+
+<!-- Modal du chatbot (caché par défaut) -->
+<div id="chatbot-modal" class="fixed bottom-24 right-6 w-80 bg-white rounded-lg shadow-lg hidden flex-col overflow-hidden border border-gray-200 z-20">
+    <div class="bg-green-600 text-white text-center py-3 flex justify-between items-center px-4">
+        <h3 class="text-lg font-bold">Assistant Agricole IA</h3>
+        <button id="close-chat" class="text-white hover:text-gray-200">
+            ✕
+        </button>
+    </div>
+    
+    <div id="chat-container" class="flex-1 p-4 overflow-y-auto max-h-80 bg-gray-50">
+        <!-- Messages du chat -->
+        <div class="chat-message bot mb-4">
+            <div class="bg-green-100 rounded-lg p-3">
+                <p>Bonjour 👋 Je suis votre assistant IA spécialisé en agriculture. Posez-moi vos questions sur :</p>
+                <ul class="list-disc pl-5 mt-2">
+                    <li>Techniques de vente</li>
+                    <li>Méthodes d'arrosage</li>
+                    <li>Nutrition animale</li>
+                    <li>Conseils saisonniers</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="border-t p-3 bg-white">
+        <div class="flex">
+            <input type="text" id="user-input" 
+                   placeholder="Ex: Comment arroser mes tomates?" 
+                   class="flex-1 px-4 py-2 border rounded-l focus:outline-none">
+            <button id="send-btn" class="bg-green-600 text-white px-4 py-2 rounded-r hover:bg-green-700">
+                Envoyer
+            </button>
+        </div>
+        <div class="mt-2 text-xs text-gray-500">
+            Essayez: "Comment vendre mes produits?" ou "Conseils pour mes vaches laitières"
+        </div>
+    </div>
+</div>
+
+<!-- Section produits -->
 <div class="bg-white rounded-lg shadow">
     <div class="px-6 py-4 border-b flex justify-between items-center">
         <h2 class="text-lg font-semibold">Liste des produits</h2>
@@ -59,4 +104,145 @@
         </table>
     </div>
 </div>
+
+<!-- Script pour le chatbot -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Références aux éléments du DOM
+    const chatToggle = $('#chat-toggle');
+    const chatbotModal = $('#chatbot-modal');
+    const closeChat = $('#close-chat');
+    const chatContainer = $('#chat-container');
+    const userInput = $('#user-input');
+    const sendBtn = $('#send-btn');
+    
+    // Fonction pour basculer l'affichage du chatbot
+    function toggleChat() {
+        chatbotModal.toggleClass('hidden');
+    }
+    
+    // Fonction pour ajouter un message dans le chat
+    function appendMessage(text, isUser = false) {
+        const messageClass = isUser ? 'user' : 'bot';
+        const bgClass = isUser ? 'bg-blue-100' : 'bg-green-100';
+        const alignClass = isUser ? 'ml-auto' : 'mr-auto';
+        
+        const messageHTML = `
+        <div class="chat-message ${messageClass} mb-4">
+            <div class="${bgClass} rounded-lg p-3 ${alignClass} max-w-[80%]">
+                <p>${text}</p>
+            </div>
+        </div>
+        `;
+        
+        chatContainer.append(messageHTML);
+        chatContainer.scrollTop(chatContainer[0].scrollHeight);
+    }
+    
+    // Envoyer un message
+    function sendMessage() {
+        const message = userInput.val().trim();
+        if (message === '') return;
+        
+        // Ajouter le message de l'utilisateur
+        appendMessage(message, true);
+        userInput.val('');
+        
+        // Envoyer la requête au serveur
+        $.ajax({
+            url: '/chatbot/get-response/',
+            method: 'GET',
+            data: { message: message },
+            success: function(response) {
+                appendMessage(response.reply);
+            },
+            error: function() {
+                appendMessage("Désolé, je rencontre un problème technique. Pouvez-vous reformuler votre question?");
+            }
+        });
+    }
+    
+    // Gestion des événements
+    chatToggle.click(toggleChat);
+    closeChat.click(toggleChat);
+    sendBtn.click(sendMessage);
+    userInput.keypress(function(e) {
+        if (e.which === 13) sendMessage();
+    });
+    
+    // Fermer le chat en cliquant en dehors
+    $(document).click(function(event) {
+        if (!$(event.target).closest('#chatbot-modal, #chat-toggle').length) {
+            chatbotModal.addClass('hidden');
+        }
+    });
+    
+    // Exemples de questions rapides
+    const quickQuestions = [
+        "Comment vendre mes produits?",
+        "Arrosage des tomates en été",
+        "Nourriture pour vaches laitières"
+    ];
+    
+    // Ajouter les questions rapides
+    const quickQuestionsHTML = `
+    <div class="mt-4">
+        <p class="text-sm text-gray-600 mb-2">Questions rapides:</p>
+        <div class="flex flex-wrap gap-2">
+            ${quickQuestions.map(q => `
+            <button class="quick-question bg-gray-200 hover:bg-gray-300 text-gray-800 text-xs px-3 py-1 rounded">
+                ${q}
+            </button>
+            `).join('')}
+        </div>
+    </div>
+    `;
+    
+    chatContainer.append(quickQuestionsHTML);
+    
+    // Gestion des questions rapides
+    $(document).on('click', '.quick-question', function() {
+        const question = $(this).text();
+        userInput.val(question);
+        sendMessage();
+    });
+});
+</script>
+
+<style>
+.chat-message {
+    transition: all 0.3s ease;
+}
+.chat-message.user .message-content {
+    margin-left: auto;
+}
+.chat-message.bot .message-content {
+    margin-right: auto;
+}
+#chat-container {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e0 #f1f1f1;
+}
+#chat-container::-webkit-scrollbar {
+    width: 6px;
+}
+#chat-container::-webkit-scrollbar-thumb {
+    background-color: #cbd5e0;
+    border-radius: 3px;
+}
+#chat-toggle {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+#chat-toggle:hover {
+    transform: scale(1.05);
+}
+#chatbot-modal {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+#close-chat {
+    font-size: 1.2rem;
+}
+</style>
 {% endblock %}
