@@ -25,7 +25,8 @@ urlpatterns = [
     path('produits/', include('produits.urls')),
     path('auth/',include('django.contrib.auth.urls')),
     path('auth/', include('authentication.urls')),
-    path('chatbot/', include('chatbot.urls')),  
+    path('chatbot/', include('chatbot.urls')),
+    path('client/', include('client.urls')),  
 ]
 
 from django.conf.urls.static import static

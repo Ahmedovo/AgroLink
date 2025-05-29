@@ -13,7 +13,7 @@ def login_user(request):
                 return redirect('product-list')
                 
         elif request.user.role == 'ACHETEUR':
-                return redirect('agriculteur_dashboard')
+                return redirect('client-product-list')
         return redirect('home')
     if request.method == 'POST':
        
@@ -30,7 +30,7 @@ def login_user(request):
             if user.role == 'AGRI':
                 return redirect('product-list')
             elif user.role == 'ACHETEUR':
-                return redirect('agriculteur_dashboard')
+                return redirect('client-product-list')
             return redirect('home')
         else:
             
@@ -43,7 +43,7 @@ def register(request):
         if request.user.role == 'AGRI':
                 return redirect('product-list')
         elif request.user.role == 'ACHETEUR':
-                return redirect('agriculteur_dashboard')
+                return redirect('client-product-list')
         return redirect('home')
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
