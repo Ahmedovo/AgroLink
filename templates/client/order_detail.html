@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la commande #{{ order.id }} - AgroLink</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Détails de la commande #{{ order.id }}</h2>
+
+        <!-- Informations de la commande -->
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+            <p class="text-gray-800">Date : {{ order.date }}</p>
+            <p class="text-gray-800">Statut : {{ order.statut }}</p>
+            <p class="text-gray-800">Total : {{ order.total }} €</p>
+        </div>
+
+        <!-- Liste des articles -->
+        <h3 class="text-2xl font-semibold text-gray-800 mb-4">Articles</h3>
+        <ul class="space-y-4">
+            {% for ligne in order.lignecommande_set.all %}
+            <li class="bg-white p-4 rounded-lg shadow-md">
+                <p class="text-gray-800">{{ ligne.quantite }}x {{ ligne.produit.nom }} - {{ ligne.prix_unitaire }} €</p>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Lien pour retourner à la liste des commandes -->
+        <div class="mt-6">
+            <a href="{% url 'client-order-list' %}" 
+               class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700">
+                Retour à la liste des commandes
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre panier - AgroLink</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-6">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Votre panier</h2>
+
+        {% if cart.cartitem_set.exists %}
+        <ul class="space-y-4">
+            {% for item in cart.cartitem_set.all %}
+            <li class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+                <div>
+                    <p class="text-lg font-semibold text-gray-800">{{ item.product.nom }}</p>
+                    <p class="text-gray-600">{{ item.quantity }} x {{ item.product.prix_suggere }} € = {{ item.get_subtotal }} €</p>
+                </div>
+                <a href="{% url 'client-remove-from-cart' item.id %}" 
+                   class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
+                    Retirer
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <div class="mt-6">
+            <p class="text-xl font-semibold text-gray-800">Total : {{ cart.get_total }} €</p>
+            <a href="{% url 'client-checkout' %}" 
+               class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                Passer la commande
+            </a>
+        </div>
+        {% else %}
+        <p class="text-gray-500 text-center py-4">Votre panier est vide.</p>
+        {% endif %}
+
+        <div class="mt-6">
+            <a href="{% url 'client-product-list' %}" 
+               class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700">Continuer vos achats
+            </a>
+        </div>
+    </div>
+</body>
+</html>
