@@ -5,12 +5,21 @@ from produits.models import Produit
 from commandes.models import Commande, LigneCommande
 from .models import Cart, CartItem
 from agroL.utils import is_client
+from authentication.models import User
 
 @login_required
 @user_passes_test(is_client)
 def product_list(request):
     produits = Produit.objects.all()
-    return render(request, 'client/product_list.html', {'produits': produits})
+    nombre_clients = User.objects.filter(role='ACHETEUR').count()
+    nombre_agriculteurs = User.objects.filter(role='AGRI').count()
+    nombre_produits = Produit.objects.count()
+    return render(request, 'client/product_list.html', {
+        'produits': produits,
+        'nombre_clients': nombre_clients,
+        'nombre_agriculteurs': nombre_agriculteurs,
+        'nombre_produits': nombre_produits
+    })
 
 @login_required
 @user_passes_test(is_client)
