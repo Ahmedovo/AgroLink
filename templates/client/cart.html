@@ -16,7 +16,7 @@
             <li class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
                 <div>
                     <p class="text-lg font-semibold text-gray-800">{{ item.product.nom }}</p>
-                    <p class="text-gray-600">{{ item.quantity }} x {{ item.product.prix_suggere }} € = {{ item.get_subtotal }} €</p>
+                    <p class="text-gray-600">{{ item.quantity }} x {{ item.product.prix_suggere }} DH = {{ item.get_subtotal }} DH</p>
                 </div>
                 <a href="{% url 'client-remove-from-cart' item.id %}" 
                    class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">
@@ -27,7 +27,7 @@
         </ul>
 
         <div class="mt-6">
-            <p class="text-xl font-semibold text-gray-800">Total : {{ cart.get_total }} €</p>
+            <p class="text-xl font-semibold text-gray-800">Total : {{ cart.get_total }} DH</p>
             <a href="{% url 'client-checkout' %}" 
                class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
                 Passer la commande
