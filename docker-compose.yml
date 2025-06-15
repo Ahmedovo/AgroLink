@@ -1,0 +1,40 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_NAME=agrolink_db
+      - DB_USER=postgres
+      - DB_PASSWORD=0000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DEBUG=True
+    volumes:
+      - .:/app
+      - media_data:/app/media
+    depends_on:
+      - db
+    networks:
+      - agrol-network
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=0000
+      - POSTGRES_DB=agrolink_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - agrol-network
+
+volumes:
+  postgres_data:
+  media_data:
+
+networks:
+  agrol-network:
+    driver: bridge
